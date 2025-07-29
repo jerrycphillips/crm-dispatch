@@ -58,10 +58,37 @@ if (!app()->environment('production')) {
     })->name('dev.login');
 }
 
+// Temporary test route without auth middleware
+Route::get('/dashboard-test', function () {
+    return Inertia::render('TestDashboard', [
+        'test' => 'Hello World - No Auth'
+    ]);
+})->name('dashboard.test');
+
+// Ultra simple test route
+Route::get('/simple-test', function () {
+    return response()->json(['message' => 'Simple test works']);
+});
+
 Route::middleware('auth')->group(function () {
     Route::post('logout', [EmployeeAuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        try {
+            return Inertia::render('Dashboard', [
+                'auth' => [
+                    'user' => [
+                        'id' => 1,
+                        'name' => 'Jerry Phillips',
+                        'email' => 'jerry@yourserviceutah.com',
+                        'first_name' => 'Jerry',
+                        'last_name' => 'Phillips',
+                    ]
+                ],
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Dashboard error: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     })->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
