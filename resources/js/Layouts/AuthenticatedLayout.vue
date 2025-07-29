@@ -51,7 +51,7 @@ onUnmounted(() => {
                     '-translate-x-full': !sidebarOpen,
                     'translate-x-0': sidebarOpen 
                 }"
-                class="sidebar fixed top-0 left-0 z-40 flex h-screen w-[290px] flex-col overflow-y-auto border-r border-gray-200 bg-white px-5 transition-all duration-300 lg:relative lg:translate-x-0 dark:border-gray-800 dark:bg-gray-900"
+                class="sidebar fixed top-0 left-0 z-50 flex h-screen w-[290px] flex-col overflow-y-auto border-r border-gray-200 bg-white px-5 transition-all duration-300 lg:translate-x-0 dark:border-gray-800 dark:bg-gray-900"
             >
             <!-- Logo -->
             <div class="flex items-center justify-between py-6">
@@ -254,7 +254,7 @@ onUnmounted(() => {
         ></div>
 
             <!-- Main Content Area -->
-            <div class="flex-1 min-h-screen lg:flex lg:flex-col">
+            <div class="flex-1 min-h-screen lg:flex lg:flex-col lg:ml-[290px]">
                 <!-- Header adjacent to sidebar -->
                 <header class="sticky top-0 z-30 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-600 h-16">
                 <div class="flex items-center justify-between px-6 h-16">
