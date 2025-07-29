@@ -203,6 +203,108 @@
           </li>
           <!-- Menu Item Profile -->
 
+          <!-- Menu Item Employees -->
+          <li>
+            <a
+              href="#"
+              @click.prevent="selected = (selected === 'Employees' ? '':'Employees')"
+              class="menu-item group"
+              :class=" (selected === 'Employees') || (page === 'employees' || page === 'vendors') ? 'menu-item-active' : 'menu-item-inactive'"
+            >
+              <svg
+                :class="(selected === 'Employees') || (page === 'employees' || page === 'vendors') ? 'menu-item-icon-active'  :'menu-item-icon-inactive'"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM13 9C13 9.55228 12.5523 10 12 10C11.4477 10 11 9.55228 11 9C11 8.44772 11.4477 8 12 8C12.5523 8 13 8.44772 13 9Z"
+                  fill=""
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 14.0902 3.71255 16.014 4.90798 17.5417C6.55245 15.3889 9.14627 14 12.0645 14C14.9448 14 17.5092 15.3531 19.1565 17.4583C20.313 15.9443 21 14.0524 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12ZM12.0645 16C14.033 16 15.8645 16.8901 17.1588 18.4329C15.8471 19.4219 14.2174 20 12.4839 20C10.7089 20 9.05273 19.3896 7.72656 18.3613C9.00301 16.8515 10.8105 16 12.0645 16Z"
+                  fill=""
+                />
+              </svg>
+
+              <span
+                class="menu-item-text"
+                :class="sidebarToggle ? 'lg:hidden' : ''"
+              >
+                Employees
+              </span>
+
+              <svg
+                class="menu-item-arrow"
+                :class="[(selected === 'Employees') ? 'menu-item-arrow-active' : 'menu-item-arrow-inactive', sidebarToggle ? 'lg:hidden' : '' ]"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585"
+                  stroke=""
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+
+            <!-- Dropdown Menu Start -->
+            <div
+              class="overflow-hidden transform translate"
+              :class="(selected === 'Employees') ? 'block' :'hidden'"
+            >
+              <ul
+                :class="sidebarToggle ? 'lg:hidden' : 'flex'"
+                class="flex flex-col gap-1 mt-2 menu-dropdown pl-9"
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="menu-dropdown-item group"
+                    :class="page === 'employees' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'"
+                  >
+                    All Employees
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="menu-dropdown-item group"
+                    :class="page === 'vendors' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-2 fill-current"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                        fill=""
+                      />
+                    </svg>
+                    Vendors
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- Dropdown Menu End -->
+          </li>
+          <!-- Menu Item Employees -->
+
           <!-- Menu Item Forms -->
           <li>
             <a
