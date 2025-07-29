@@ -43,6 +43,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Development User Email
+    |--------------------------------------------------------------------------
+    |
+    | This email is used for auto-login in non-production environments.
+    | Make sure this corresponds to a valid employee in your database.
+    |
+    */
+
+    'dev_user_email' => env('DEV_USER_EMAIL'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |

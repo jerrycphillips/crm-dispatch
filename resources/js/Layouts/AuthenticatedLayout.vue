@@ -9,6 +9,8 @@ const showingNavigationDropdown = ref(false);
 const sidebarOpen = ref(false);
 const darkMode = ref(false);
 const dropdownOpen = ref(false);
+const vendorsDropdownOpen = ref(false);
+const accountsPayableDropdownOpen = ref(false);
 
 const toggleSidebar = () => {
     sidebarOpen.value = !sidebarOpen.value;
@@ -22,6 +24,12 @@ const toggleDarkMode = () => {
 const closeDropdown = (e) => {
     if (!e.target.closest('.user-dropdown')) {
         dropdownOpen.value = false;
+    }
+    if (!e.target.closest('.vendors-dropdown')) {
+        vendorsDropdownOpen.value = false;
+    }
+    if (!e.target.closest('.accounts-payable-dropdown')) {
+        accountsPayableDropdownOpen.value = false;
     }
 };
 
@@ -116,6 +124,75 @@ onUnmounted(() => {
                     </svg>
                     Employees
                 </a>
+
+                <!-- Vendors -->
+                <div class="vendors-dropdown relative">
+                    <button 
+                        @click="vendorsDropdownOpen = !vendorsDropdownOpen"
+                        class="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                        <div class="flex items-center">
+                            <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            Vendors
+                        </div>
+                        <svg 
+                            :class="{ 'rotate-180': vendorsDropdownOpen }"
+                            class="h-4 w-4 transition-transform duration-200"
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div 
+                        v-show="vendorsDropdownOpen"
+                        class="mt-2 ml-8 space-y-1"
+                    >
+                        <a 
+                            href="#"
+                            class="block rounded-lg px-4 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        >
+                            Purchase Orders
+                        </a>
+                        
+                        <!-- Accounts Payable with submenu -->
+                        <div class="accounts-payable-dropdown relative">
+                            <button 
+                                @click="accountsPayableDropdownOpen = !accountsPayableDropdownOpen"
+                                class="flex w-full items-center justify-between rounded-lg px-4 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            >
+                                <span>Accounts Payable</span>
+                                <svg 
+                                    :class="{ 'rotate-180': accountsPayableDropdownOpen }"
+                                    class="h-3 w-3 transition-transform duration-200"
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            
+                            <!-- Accounts Payable Submenu -->
+                            <div 
+                                v-show="accountsPayableDropdownOpen"
+                                class="mt-1 ml-4 space-y-1"
+                            >
+                                <Link 
+                                    :href="route('vouchers.index')"
+                                    class="block rounded-lg px-4 py-2 text-xs text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                                >
+                                    Vouchers
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Reports -->
                 <a 

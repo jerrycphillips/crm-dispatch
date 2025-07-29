@@ -209,10 +209,10 @@
               href="#"
               @click.prevent="selected = (selected === 'Employees' ? '':'Employees')"
               class="menu-item group"
-              :class=" (selected === 'Employees') || (page === 'employees' || page === 'vendors') ? 'menu-item-active' : 'menu-item-inactive'"
+              :class=" (selected === 'Employees') || (page === 'employees') ? 'menu-item-active' : 'menu-item-inactive'"
             >
               <svg
-                :class="(selected === 'Employees') || (page === 'employees' || page === 'vendors') ? 'menu-item-icon-active'  :'menu-item-icon-inactive'"
+                :class="(selected === 'Employees') || (page === 'employees') ? 'menu-item-icon-active'  :'menu-item-icon-inactive'"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -275,28 +275,6 @@
                     :class="page === 'employees' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'"
                   >
                     All Employees
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="menu-dropdown-item group"
-                    :class="page === 'vendors' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'"
-                  >
-                    <svg
-                      class="w-4 h-4 mr-2 fill-current"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                        fill=""
-                      />
-                    </svg>
-                    Vendors
                   </a>
                 </li>
               </ul>
