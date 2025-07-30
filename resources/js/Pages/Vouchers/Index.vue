@@ -112,7 +112,15 @@
                                             {{ voucher.vendor?.name || voucher.vendor_name || 'N/A' }}
                                         </td>
                                         <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap max-w-32 truncate" :title="voucher.packing_slip || 'N/A'">
-                                            {{ getFileName(voucher.packing_slip) || 'N/A' }}
+                                            <a 
+                                                v-if="voucher.packing_slip && getFileName(voucher.packing_slip)"
+                                                @click.prevent="openPackingSlip(getFileName(voucher.packing_slip))"
+                                                href="#"
+                                                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline cursor-pointer"
+                                            >
+                                                {{ getFileName(voucher.packing_slip) }}
+                                            </a>
+                                            <span v-else class="text-gray-500">N/A</span>
                                         </td>
                                         <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap">
                                             {{ voucher.invoice_date ? formatDate(voucher.invoice_date) : 'N/A' }}
@@ -121,7 +129,15 @@
                                             {{ voucher.invoice_no || 'N/A' }}
                                         </td>
                                         <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap max-w-48 truncate" :title="voucher.invoice || 'N/A'">
-                                            {{ getFileName(voucher.invoice) || 'N/A' }}
+                                            <a 
+                                                v-if="voucher.invoice && getFileName(voucher.invoice)"
+                                                @click.prevent="openInvoice(getFileName(voucher.invoice))"
+                                                href="#"
+                                                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline cursor-pointer"
+                                            >
+                                                {{ getFileName(voucher.invoice) }}
+                                            </a>
+                                            <span v-else class="text-gray-500">N/A</span>
                                         </td>
                                         <td class="px-4 py-4 whitespace-nowrap">
                                             <span v-if="voucher.invoice_posted" 
@@ -265,6 +281,36 @@ const updatePerPage = () => {
 
 const refreshPage = () => {
     window.location.reload();
+};
+
+const openPackingSlip = (fileName) => {
+    const url = `https://dcservice.designcomfortco.com/packingslips/${fileName}`;
+    
+    // Check if it's a mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // On mobile, navigate directly to the URL
+        window.location.href = url;
+    } else {
+        // On desktop, open in new window
+        window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+    }
+};
+
+const openInvoice = (fileName) => {
+    const url = `https://dcservice.designcomfortco.com/bills/${fileName}`;
+    
+    // Check if it's a mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // On mobile, navigate directly to the URL
+        window.location.href = url;
+    } else {
+        // On desktop, open in new window
+        window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+    }
 };
 
 // Watch for search changes
