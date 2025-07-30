@@ -291,8 +291,8 @@ onUnmounted(() => {
 
             <!-- Main Content Area -->
             <div class="flex-1 min-h-screen lg:flex lg:flex-col lg:ml-[290px]">
-                <!-- Header adjacent to sidebar -->
-                <header class="sticky top-0 z-30 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-600 h-16">
+                <!-- Header fixed to viewport -->
+                <header class="fixed top-0 left-0 right-0 z-30 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-600 h-16 lg:left-[290px]">
                 <div class="flex items-center justify-between px-6 h-16">
                     <!-- Mobile menu button -->
                     <button 
@@ -397,7 +397,7 @@ onUnmounted(() => {
             </header>
 
             <!-- Page Content -->
-            <main class="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+            <main class="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen pt-22">
                 <slot />
             </main>
             </div>
