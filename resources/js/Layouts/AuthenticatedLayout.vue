@@ -1,16 +1,31 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+
+const page = usePage();
 
 const showingNavigationDropdown = ref(false);
 const sidebarOpen = ref(false);
 const darkMode = ref(false);
 const dropdownOpen = ref(false);
+
+// Keep vendors dropdown open if we're on a vendors-related page
 const vendorsDropdownOpen = ref(false);
 const accountsPayableDropdownOpen = ref(false);
+
+// Auto-open dropdowns based on current route
+const currentRoute = computed(() => page.url);
+
+// Check if we should auto-open dropdowns based on current page
+onMounted(() => {
+    if (currentRoute.value.includes('/vouchers')) {
+        vendorsDropdownOpen.value = true;
+        accountsPayableDropdownOpen.value = true;
+    }
+});
 
 const toggleSidebar = () => {
     sidebarOpen.value = !sidebarOpen.value;
@@ -21,15 +36,26 @@ const toggleDarkMode = () => {
     document.documentElement.classList.toggle('dark');
 };
 
+const toggleVendorsDropdown = () => {
+    vendorsDropdownOpen.value = !vendorsDropdownOpen.value;
+    if (!vendorsDropdownOpen.value) {
+        accountsPayableDropdownOpen.value = false;
+    }
+};
+
+const toggleAccountsPayableDropdown = () => {
+    accountsPayableDropdownOpen.value = !accountsPayableDropdownOpen.value;
+};
+
 const closeDropdown = (e) => {
+    // Don't close dropdowns if we're clicking inside them or on navigation links
+    if (e.target.closest('.vendors-dropdown') || e.target.closest('a[href]')) {
+        return;
+    }
+    
+    // Close user dropdown if clicked outside
     if (!e.target.closest('.user-dropdown')) {
         dropdownOpen.value = false;
-    }
-    if (!e.target.closest('.vendors-dropdown')) {
-        vendorsDropdownOpen.value = false;
-    }
-    if (!e.target.closest('.accounts-payable-dropdown')) {
-        accountsPayableDropdownOpen.value = false;
     }
 };
 
@@ -128,7 +154,7 @@ onUnmounted(() => {
                 <!-- Vendors -->
                 <div class="vendors-dropdown relative">
                     <button 
-                        @click="vendorsDropdownOpen = !vendorsDropdownOpen"
+                        @click="toggleVendorsDropdown"
                         class="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
                         <div class="flex items-center">
@@ -151,6 +177,7 @@ onUnmounted(() => {
                     <!-- Dropdown Menu -->
                     <div 
                         v-show="vendorsDropdownOpen"
+                        @click.stop
                         class="mt-2 ml-8 space-y-1"
                     >
                         <a 
@@ -163,7 +190,7 @@ onUnmounted(() => {
                         <!-- Accounts Payable with submenu -->
                         <div class="accounts-payable-dropdown relative">
                             <button 
-                                @click="accountsPayableDropdownOpen = !accountsPayableDropdownOpen"
+                                @click="toggleAccountsPayableDropdown"
                                 class="flex w-full items-center justify-between rounded-lg px-4 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                             >
                                 <span>Accounts Payable</span>
@@ -181,14 +208,23 @@ onUnmounted(() => {
                             <!-- Accounts Payable Submenu -->
                             <div 
                                 v-show="accountsPayableDropdownOpen"
+                                @click.stop
                                 class="mt-1 ml-4 space-y-1"
                             >
                                 <Link 
                                     :href="route('vouchers.index')"
+                                    @click.stop
                                     class="block rounded-lg px-4 py-2 text-xs text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                 >
                                     Vouchers
                                 </Link>
+                                <a 
+                                    href="#"
+                                    @click.stop
+                                    class="block rounded-lg px-4 py-2 text-xs text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                                >
+                                    Unposted POs
+                                </a>
                             </div>
                         </div>
                     </div>
