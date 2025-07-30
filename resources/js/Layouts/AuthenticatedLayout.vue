@@ -21,7 +21,7 @@ const currentRoute = computed(() => page.url);
 
 // Check if we should auto-open dropdowns based on current page
 onMounted(() => {
-    if (currentRoute.value.includes('/vouchers')) {
+    if (currentRoute.value.includes('/vouchers') || currentRoute.value.includes('/purchase-orders')) {
         vendorsDropdownOpen.value = true;
         accountsPayableDropdownOpen.value = true;
     }
@@ -218,13 +218,13 @@ onUnmounted(() => {
                                 >
                                     Vouchers
                                 </Link>
-                                <a 
-                                    href="#"
+                                <Link 
+                                    :href="route('purchase-orders.unposted')"
                                     @click.stop
                                     class="block rounded-lg px-4 py-2 text-xs text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                 >
                                     Unposted POs
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

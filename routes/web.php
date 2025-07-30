@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\PurchaseOrderController;
 
 // Employee Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -97,8 +98,12 @@ Route::middleware('auth')->group(function () {
     // Voucher routes
     Route::resource('vouchers', VoucherController::class)->except(['destroy']);
     
+    // Purchase Order routes
+    Route::get('/purchase-orders/unposted', [PurchaseOrderController::class, 'unpostedIndex'])->name('purchase-orders.unposted');
+    
     // API routes
     Route::get('/api/vouchers', [VoucherController::class, 'apiIndex'])->name('api.vouchers');
+    Route::get('/api/purchase-orders/unposted', [PurchaseOrderController::class, 'apiUnpostedIndex'])->name('api.purchase-orders.unposted');
 });
 
 // require __DIR__.'/auth.php'; // Commented out to use custom Employee authentication
