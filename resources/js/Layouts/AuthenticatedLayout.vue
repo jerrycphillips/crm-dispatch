@@ -397,7 +397,7 @@ onUnmounted(() => {
             </header>
 
             <!-- Page Content -->
-            <main class="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen pt-22">
+            <main class="px-6 pb-6 pt-20 bg-gray-50 dark:bg-gray-900 min-h-screen">
                 <slot />
             </main>
             </div>
